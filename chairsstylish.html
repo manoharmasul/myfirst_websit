@@ -1,0 +1,357 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Locker Product Listing</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f4f4;
+    }
+
+    /* ---------- WORKSHOP HEADER ---------- */
+    .workshop-header {
+      background: linear-gradient(135deg, #2e2e2e, #4caf50);
+      color: white;
+      padding: 25px 40px;
+      border-bottom: 6px solid #222;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .workshop-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .workshop-left h1 {
+      font-size: 36px;
+      margin: 0;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .workshop-left p {
+      font-size: 16px;
+      margin: 6px 0 0;
+      opacity: 0.9;
+      font-style: italic;
+    }
+
+    .workshop-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+      font-size: 14px;
+      text-align: right;
+    }
+
+    .workshop-meta span {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 6px 12px;
+      border-radius: 6px;
+    }
+
+    .workshop-meta a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .workshop-meta a:hover {
+      text-decoration: underline;
+    }
+
+    /* ---------- PRODUCT CONTAINER ---------- */
+    .container {
+      display: flex;
+      max-width: 1200px;
+      margin: 40px auto;
+      background: white;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      height: 700px;
+      border-radius: 8px;
+    }
+
+    .image-section {
+      flex: 1;
+      display: flex;
+      padding: 20px;
+      background: #fff;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .main-image-wrapper {
+      flex: 4;
+      height: 80vh;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .main-image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .thumbnails {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      height: 80vh;
+      overflow-y: auto;
+    }
+
+    .thumbnails img {
+      width: 100%;
+      cursor: pointer;
+      border-radius: 6px;
+      border: 2px solid transparent;
+      object-fit: cover;
+      aspect-ratio: 1 / 1;
+      transition: border 0.3s;
+    }
+
+    .thumbnails img:hover,
+    .thumbnails img.active {
+      border: 2px solid #333;
+    }
+
+    .info-section {
+      flex: 1;
+      padding: 30px;
+      background: #fafafa;
+      overflow-y: auto;
+    }
+
+    .info-section h2 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .info-section .offer {
+      background-color: #4caf50;
+      color: white;
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 14px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+
+    .price {
+      font-size: 22px;
+      color: #000;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .details-list li {
+      margin-bottom: 10px;
+      font-size: 15px;
+    }
+
+    .btn {
+      padding: 12px 25px;
+      background-color: #2e2e2e;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 15px;
+      width: fit-content;
+    }
+
+    .btn:hover {
+      background-color: #444;
+    }
+
+    .info-section table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    .info-section table td, .info-section table th {
+      border: 1px solid #ccc;
+      padding: 8px 12px;
+    }
+
+    .info-section table th {
+      background: #f0f0f0;
+      text-align: left;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .container {
+        flex-direction: column;
+        height: auto;
+      }
+
+      .image-section {
+        flex-direction: column;
+      }
+
+      .main-image-wrapper, .thumbnails {
+        height: auto;
+        width: 100%;
+      }
+
+      .thumbnails {
+        flex-direction: row;
+        overflow-x: auto;
+      }
+
+      .thumbnails img {
+        width: 60px;
+      }
+
+      .workshop-content {
+        flex-direction: column;
+        text-align: center;
+      }
+      .workshop-meta {
+        align-items: center;
+        text-align: center;
+        margin-top: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- WORKSHOP HEADER -->
+<header class="workshop-header">
+  <div class="workshop-content">
+    <!-- Left side -->
+    <div class="workshop-left">
+      <h1>Giriraj Furniture Workshop</h1>
+      <p>Premium Office & Industrial Furniture Solutions</p>
+    </div>
+    <!-- Right side -->
+    <div class="workshop-meta">
+      <span>📍 <a href="https://www.google.com/maps/place/123+Industrial+Estate,+Pune,+India" target="_blank">
+        123 Industrial Estate, Pune, India
+      </a></span>
+      <span>📞 <a href="tel:+919876543210">+91 98765 43210</a></span>
+      <span>✉️ <a href="mailto:info@girirajfurniture.com">info@girirajfurniture.com</a></span>
+    </div>
+  </div>
+</header>
+
+<!-- PRODUCT 1 -->
+<div class="container">
+  <div class="image-section">
+    <div class="main-image-wrapper">
+      <img data-main="1" src="images/ai-generated-8895614.jpg" alt="Office Chair 1" />
+    </div>
+    <div class="thumbnails">
+      <img src="images/c1backChatGPT Image Sep 28, 2025, 01_02_39 PM.png" data-main="1" onclick="changeImage(this)" class="active">
+      <img src="images/c1topGemini_Generated_Image_uzkihfuzkihfuzki (1).png" data-main="1" onclick="changeImage(this)">
+      <img src="images/ai-generated-8895614.jpg" data-main="1" onclick="changeImage(this)">
+    </div>
+  </div>
+
+  <div class="info-section">
+    <h2>Comfert Office Chair</h2>
+    <div class="offer">✔️ In Stock</div>
+    <div class="price">₹38,700 / Piece</div>
+
+    <ul class="details-list">
+      <li><strong>Material:</strong> Iron, Mild Steel</li>
+      <li><strong>Lock:</strong> Mechanical Key</li>
+      <li><strong>Finish:</strong> Satin + Powder Coating</li>
+      <li><strong>Brand:</strong> Giriraj</li>
+    </ul>
+
+    <h3>Dimensions</h3>
+    <table>
+      <tr><th>Height</th><td>1960 mm</td></tr>
+      <tr><th>Width</th><td>900 mm</td></tr>
+      <tr><th>Depth</th><td>450 mm</td></tr>
+      <tr><th>Weight</th><td>85 kg</td></tr>
+    </table>
+
+    <h3>Features</h3>
+    <ul class="details-list">
+      <li>Electrostatic rust-proof coating</li>
+      <li>Available in 4, 6, 9, 12, 15, 18 lockers</li>
+      <li>Ideal for staff or industrial use</li>
+    </ul>
+
+    <button class="btn">Get Best Quote</button>
+  </div>
+</div>
+
+<!-- PRODUCT 2 -->
+<div class="container">
+  <div class="image-section">
+    <div class="main-image-wrapper">
+      <img data-main="2" src="images/c1Gemini_Generated_Image_cyovoocyovoocyov.jpg" alt="Office Chair 2" />
+    </div>
+    <div class="thumbnails">
+      <img src="images/c21Gemini_Generated_Image_cyovoocyovoocyov.png" data-main="2" onclick="changeImage(this)" class="active">
+      <img src="images/c23Gemini_Generated_Image_w2w0wtw2w0wtw2w0.png" data-main="2" onclick="changeImage(this)">
+      <img src="images/c1Gemini_Generated_Image_cyovoocyovoocyov.jpg" data-main="2" onclick="changeImage(this)">
+    </div>
+  </div>
+
+  <div class="info-section">
+    <h2>Comfert Office Desk Chair</h2>
+    <div class="offer">✔️ Limited Stock</div>
+    <div class="price">₹31,200 / Piece</div>
+
+    <ul class="details-list">
+      <li><strong>Material:</strong> Mild Steel</li>
+      <li><strong>Lock:</strong> Keypad + Padlock</li>
+      <li><strong>Finish:</strong> Matte Black</li>
+      <li><strong>Brand:</strong> Giriraj</li>
+    </ul>
+
+    <h3>Dimensions</h3>
+    <table>
+      <tr><th>Height</th><td>1800 mm</td></tr>
+      <tr><th>Width</th><td>750 mm</td></tr>
+      <tr><th>Depth</th><td>400 mm</td></tr>
+      <tr><th>Weight</th><td>70 kg</td></tr>
+    </table>
+
+    <h3>Features</h3>
+    <ul class="details-list">
+      <li>Customizable locker combinations</li>
+      <li>Available in 6 and 12 locker setups</li>
+      <li>Scratch-resistant finish</li>
+    </ul>
+
+    <button class="btn">Get Best Quote</button>
+  </div>
+</div>
+
+<!-- JS for handling image switching -->
+<script>
+  function changeImage(el) {
+    const mainId = el.getAttribute("data-main");
+    const mainImage = document.querySelector(`.main-image-wrapper img[data-main="${mainId}"]`);
+    if (mainImage) {
+      mainImage.src = el.src;
+    }
+    const parentThumbs = el.parentElement;
+    parentThumbs.querySelectorAll('img').forEach(img => img.classList.remove('active'));
+    el.classList.add('active');
+  }
+</script>
+
+</body>
+</html>

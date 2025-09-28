@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MetalWood Furnitures</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color:  #618862;
+      color: #333;
+    }
+  .workshop-header {
+      background: linear-gradient(135deg, #2e2e2e, #acf0af);
+      color: white;
+      padding: 25px 40px;
+      border-bottom: 6px solid #222;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .workshop-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .workshop-left h1 {
+      font-size: 36px;
+      margin: 0;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .workshop-left p {
+      font-size: 16px;
+      margin: 6px 0 0;
+      opacity: 0.9;
+      font-style: italic;
+    }
+    /* ---------------- Header ---------------- */
+   
+
+    /* ---------------- Navigation ---------------- */
+    nav {
+      background-color: #111;
+      padding: 15px 0;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    nav a {
+      color: #fff;
+      margin: 0 25px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #f9a825;
+    }
+
+    /* ---------------- Hero Section ---------------- */
+    .hero {
+      position: relative;
+      background: url('images/office-594119.jpg') no-repeat center center/cover;
+      color: white;
+      padding: 120px 20px;
+      text-align: center;
+      z-index: 1;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 0;
+    }
+
+    .hero h1,
+    .hero p,
+    .sliding-offer {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      font-size: 20px;
+    }
+
+    .sliding-offer {
+      margin-top: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 10px 20px;
+      display: inline-block;
+      border-radius: 8px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ---------------- Sections ---------------- */
+    section {
+      padding: 40px 20px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .product-card {
+      background: white;
+      width: 300px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.2s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .product-card .info {
+      padding: 15px;
+    }
+
+    .info h3 {
+      margin-bottom: 10px;
+    }
+
+    .info p {
+      font-size: 14px;
+      color: #666;
+    }
+
+    /* ---------------- Contact Form ---------------- */
+    form {
+      max-width: 500px;
+      margin: 0 auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #2e2e2e;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #444;
+    }
+
+    /* ---------------- Footer ---------------- */
+    footer {
+      background-color: #2e2e2e;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 50px;
+    }
+
+    /* ---------------- Responsive ---------------- */
+    @media (max-width: 768px) {
+      .products {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      nav a {
+        margin: 0 10px;
+        font-size: 14px;
+      }
+    }
+    a{
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+<header class="workshop-header">
+  <div class="workshop-content">
+    <!-- Left side -->
+    <div class="workshop-left">
+      <h1>Giriraj Furniture Workshop</h1>
+      <p>Premium Office & Industrial Furniture Solutions</p>
+    </div>
+    <!-- Right side -->
+    <div class="workshop-meta">
+      <span>📍 <a href="https://www.google.com/maps/place/123+Industrial+Estate,+Pune,+India" target="_blank">
+        123 Industrial Estate, Pune, India
+      </a></span>
+      <span>📞 <a href="tel:+919876543210">+91 98765 43210</a></span>
+      <span>✉️ <a href="mailto:info@girirajfurniture.com">info@girirajfurniture.com</a></span>
+    </div>
+  </div>
+</header>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="#chairs">Chairs</a>
+    <a href="#cupboards">Cupboards</a>
+    <a href="#tables">Tables</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Stylish Furniture Built to Last</h1>
+    <p>Durable | Elegant | Customizable</p>
+    <div class="sliding-offer" id="offerText">🔥 20% Off on All Chairs!</div>
+  </section>
+
+  <!-- Chairs -->
+   <div class="main">
+  <section id="chairs">
+    <h2>Wood & Metal Chairs</h2>
+ 
+
+    <div class="products">
+         <a href="file:///C:/Users/manoh/Firstwebdesign/chairsstylish.html">
+      <div class="product-card">
+        <img src="images/chairs-7951845.jpg" alt="Chair 1">
+        <div class="info">
+          <h3>Modern Lounge Chair</h3>
+          <p>Wooden base with black metal legs. Perfect for modern interiors.</p>
+        </div>
+      </div>
+      </a>
+      <div class="product-card">
+        <img src="images/chair-77080.jpg" alt="Chair 2">
+        <div class="info">
+          <h3>Industrial Dining Chair</h3>
+          <p>Rustic finish and comfortable seat for everyday dining use.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cupboards -->
+  <section id="cupboards">
+    <h2>Wooden Cupboards</h2>
+    <div class="products">
+      <div class="product-card">
+        <img src="https://d91ztqmtx7u1k.cloudfront.net/ClientContent/Images/Medium/stainless-steel-wardrobe-with-20240504073946634.png" alt="Cupboard 1">
+        <div class="info">
+          <h3>Sliding Door Cupboard</h3>
+          <p>Spacious and sleek, made with solid oak wood and steel handles.</p>
+        </div>
+      </div>
+      <div class="product-card">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1_UsTQE0fCPiJropBCvxRaFKtgS0Lk_vKvQ&s" alt="Cupboard 2">
+        <div class="info">
+          <h3>Vintage Storage Cabinet</h3>
+          <p>Classic design with industrial hinges, perfect for living rooms.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tables -->
+  <section id="tables">
+    <h2>Wood & Metal Tables</h2>
+    <div class="products">
+      <div class="product-card">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlWYyDmuLzLmCXP_Xk7QOpJFIStjnEsCEWJQ&s" alt="Table 1">
+        <div class="info">
+          <h3>Dining Table</h3>
+          <p>Solid walnut top with matte black steel frame. Seats 6 comfortably.</p>
+        </div>
+      </div>
+      <div class="product-card">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0duwhse8iozC1RFkRcQ1daEIy1uwA9aSmmA&s" alt="Table 2">
+        <div class="info">
+          <h3>Compact Coffee Table</h3>
+          <p>Great for small spaces. Oak wood surface with metal legs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <form onsubmit="submitForm(event)">
+      <label for="name">Name:</label>
+      <input type="text" id="name" required />
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" required />
+
+      <label for="message">Message:</label>
+      <textarea id="message" rows="5" required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+      <button onclick="getGoodsSoldBuy()">Fetch Goods</button>
+  </section>
+</div>
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 MetalWood Furnitures. All rights reserved.</p>
+  </footer>
+<script>
+  // ... existing code ...
+
+  function getGoodsSoldBuy() {
+    const apiUrl = 'https://localhost:44320/api/AgrGoodsSoldBuy/GetAllGoodsSoldBuy';
+
+    fetch(apiUrl)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('API call failed with status ' + response.status);
+        }
+        return response.json();
+      })
+      .then(data => {
+        // Display result in <pre> tag
+        document.getElementById('apiResponse').textContent = JSON.stringify(data, null, 2);
+      })
+      .catch(error => {
+        document.getElementById('apiResponse').textContent = '❌ Error: ' + error.message;
+      });
+  }
+</script>
+
+  <!-- Scripts -->
+  <script>
+    function submitForm(e) {
+      e.preventDefault();
+      alert("Thank you! We'll contact you shortly.");
+    }
+
+    // Sliding offers logic
+    const offers = [
+      "🔥 20% Off on All Chairs!",
+      "🪑 Buy 1 Get 1 Free on Cupboards!",
+      "🛠️ Custom Design Tables Now Available!",
+      "🚚 Free Delivery on Orders Over $500!",
+      "🌟 Limited-Time Festive Deals!"
+    ];
+
+    let offerIndex = 0;
+    const offerText = document.getElementById('offerText');
+
+    setInterval(() => {
+      offerIndex = (offerIndex + 1) % offers.length;
+      offerText.textContent = offers[offerIndex];
+      offerText.style.animation = 'none';
+      void offerText.offsetWidth; // Trigger reflow
+      offerText.style.animation = 'fadeIn 1s ease-in-out';
+    }, 3000);
+  </script>
+
+</body>
+</html>
