@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Giriraj Furniture Workshop</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f4f4;
+    }
+
+    /* ---------- HEADER ---------- */
+    .workshop-header {
+      position: relative;
+      background: url("images/office-594119.jpg") center/cover no-repeat;
+      color: white;
+      height: 350px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+.contact-us{
+     background: url("images/headquarters-7445782.jpg") center/cover no-repeat;
+   
+}
+    .overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.55);
+    }
+
+    .header-top {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      margin-top: -140px;
+    }
+
+    .header-top h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: bold;
+      font-style: italic;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 25px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      font-size: 16px;
+      padding: 6px 12px;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+
+    nav ul li a:hover { background: rgba(255, 255, 255, 0.25); }
+
+    .workshop-tagline {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .workshop-tagline p {
+      font-size: 20px;
+      font-style: italic;
+      margin-bottom: 15px;
+    }
+
+    .slider {
+      height: 30px;
+      overflow: hidden;
+      position: relative;
+      display: inline-block;
+    }
+
+    .slider span {
+      display: block;
+      height: 30px;
+      animation: slide 9s infinite;
+      font-size: 18px;
+      font-weight: bold;
+      color: #ffeb3b;
+    }
+
+    @keyframes slide {
+      0% { transform: translateY(0); }
+      20% { transform: translateY(0); }
+      25% { transform: translateY(-30px); }
+      45% { transform: translateY(-30px); }
+      50% { transform: translateY(-60px); }
+      70% { transform: translateY(-60px); }
+      75% { transform: translateY(-90px); }
+      95% { transform: translateY(-90px); }
+      100% { transform: translateY(0); }
+    }
+
+    /* ---------- ABOUT + VIDEO ---------- */
+    .about-video-section {
+      padding: 60px 20px;
+      background: #ffffff;
+    }
+
+    .about-video-container {
+      display: flex;
+      max-width: 1200px;
+      margin: 0 auto;
+      gap: 30px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .video-wrapper {
+      flex: 1;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .video-wrapper video {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border-radius: 10px;
+    }
+
+    .about-text {
+      flex: 1;
+    }
+
+    .about-text h2 {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .about-text p {
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    .btn {
+      padding: 12px 25px;
+      background-color: #2e2e2e;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 15px;
+      width: fit-content;
+    }
+
+    .btn:hover { background-color: #444; }
+
+    /* ---------- WHY CHOOSE US ---------- */
+    .why-choose-us {
+      padding: 40px 20px;
+      background: #fff;
+    }
+
+    .why-choose-us-container {
+      display: flex;
+      max-width: 1200px;
+      margin: 0 auto;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      min-height: 400px;
+    }
+
+    .overlay-content-left {
+      flex: 1;
+      background: rgba(0, 0, 0, 1.7);
+      color: #fff;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .overlay-content-left h2 {
+      font-size: 36px;
+      margin-bottom: 30px;
+      font-weight: bold;
+    }
+
+    .overlay-content-left ul {
+      list-style: none;
+      padding-left: 0;
+      font-size: 18px;
+    }
+
+    .overlay-content-left ul li {
+      margin-bottom: 20px;
+      position: relative;
+      padding-left: 25px;
+    }
+
+    .overlay-content-left ul li::before {
+      content: "✔️";
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    .why-image {
+      flex: 1;
+    }
+
+    .why-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 0;
+    }
+
+    /* ---------- PRODUCT ---------- */
+    .container {
+      display: flex;
+      max-width: 1200px;
+      margin: 40px auto;
+      background: white;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      height: 700px;
+      flex-wrap: wrap;
+    }
+
+    .image-section { 
+      flex: 1;
+      display: flex;
+      padding: 20px;
+      background: #fff;
+      align-items: center;
+      justify-content: center;
+      gap: 15px; 
+    }
+
+    .main-image-wrapper { 
+      flex: 4;
+      height: 80vh;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+    }
+
+    .main-image-wrapper img { 
+      width: 100%; 
+      height: 100%; 
+      object-fit: cover; 
+      display: block; 
+    }
+
+    .thumbnails { 
+      flex: 1; 
+      display: flex; 
+      flex-direction: column; 
+      gap: 10px; 
+      height: 80vh; 
+      overflow-y: auto; 
+    }
+
+    .thumbnails img { 
+      width: 100%; 
+      cursor: pointer; 
+      border-radius: 6px; 
+      border: 2px solid transparent; 
+      object-fit: cover; 
+      aspect-ratio: 1 / 1; 
+      transition: border 0.3s; 
+    }
+
+    .thumbnails img:hover, .thumbnails img.active { border: 2px solid #333; }
+
+    .info-section { 
+      flex: 1; 
+      padding: 30px; 
+      background: #fafafa; 
+      overflow-y: auto; 
+    }
+
+    .info-section h2 { font-size: 28px; margin-bottom: 10px; }
+
+    .info-section .offer { 
+      background-color: #4caf50; 
+      color: white; 
+      display: inline-block; 
+      padding: 6px 12px; 
+      font-size: 14px; 
+      border-radius: 5px; 
+      margin-bottom: 20px; 
+    }
+
+    .price { font-size: 22px; color: #000; font-weight: bold; margin-bottom: 20px; }
+
+    .details-list li { margin-bottom: 10px; font-size: 15px; }
+
+    .info-section table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    .info-section table td, .info-section table th { border: 1px solid #ccc; padding: 8px 12px; }
+    .info-section table th { background: #f0f0f0; text-align: left; }
+
+    /* ---------- BUSINESS IMAGES SLIDER ---------- */
+    .business-slider .slider-wrapper { overflow: hidden; }
+    .business-slider .slider-track { display: flex; gap: 20px; transition: transform 0.5s ease; }
+    .business-slider img { width: calc(33.33% - 13.33px); border-radius: 8px; }
+
+    /* ---------- CONTACT US ---------- */
+    .contact-us input, .contact-us textarea { width: 100%; }
+    
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 900px) {
+      .container { flex-direction: column; height: auto; }
+      .image-section { flex-direction: column; }
+      .main-image-wrapper, .thumbnails { height: auto; width: 100%; }
+      .thumbnails { flex-direction: row; overflow-x: auto; }
+      .thumbnails img { width: 60px; }
+      nav ul { flex-wrap: wrap; gap: 15px; }
+      .header-top { flex-direction: column; gap: 10px; }
+      .about-video-container { flex-direction: column; }
+      .about-text, .video-wrapper { width: 100%; }
+      .about-text h2 { text-align: center; }
+      .overlay-content-left h2 { font-size: 28px; }
+      .overlay-content-left ul { font-size: 16px; }
+      .overlay-content-left ul li { padding-left: 20px; }
+      .business-slider img { width: 80%; }
+      .contact-us { padding: 40px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="workshop-header">
+  <div class="overlay"></div>
+  <div class="header-top">
+    <h1>Giriraj Industries / Giri Steel Furniture</h1>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Products</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="workshop-tagline">
+    <p>Premium Office & Industrial Furniture Solutions</p>
+    <div class="slider">
+      <span>🎉 Festival Sale – Flat 20% OFF</span>
+      <span>🚚 Free Delivery on Bulk Orders</span>
+      <span>💺 Customized Office Furniture Available</span>
+      <span>🔥 Limited Period Discount – Grab Now!</span>
+    </div>
+  </div>
+</header>
+
+<!-- ABOUT + VIDEO -->
+<section class="about-video-section">
+  <div class="about-video-container">
+    <video controls autoplay muted loop style="width: 60%;">
+      <source src="videos\videoplayback (1)-VEED.mp4" type="video/mp4">
+   
+      Your browser does not support HTML5 video.
+    </video>
+    <div class="about-text">
+      <h2>About Giriraj Steel Furniture</h2>
+      <p>
+        Giriraj Steel Furniture has been a trusted name in premium office and industrial furniture solutions for decades.
+        We specialize in high-quality, durable, and customizable furniture products that cater to both corporate and industrial clients.
+      </p>
+      <p>
+        Our products are designed with precision engineering, using the finest materials like iron and mild steel, combined with modern finishes and rust-proof coatings. We are committed to providing comfort, durability, and aesthetics in every piece.
+      </p>
+      <button class="btn">Learn More</button>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="why-choose-us">
+  <div class="why-choose-us-container">
+    <div class="overlay-content-left">
+      <h2>Why Choose Us</h2>
+      <ul>
+        <li>Premium Quality Materials with superior durability and finish</li>
+        <li>Durable and Long-lasting Furniture built to last decades</li>
+        <li>Customizable Designs tailored to your space and needs</li>
+        <li>Expert Craftsmanship by skilled professionals</li>
+        <li>Fast Delivery & Installation ensuring timely setup</li>
+        <li>Eco-friendly & Sustainable practices for green living</li>
+        <li>Exceptional Customer Support for a smooth experience</li>
+      </ul>
+    </div>
+    <div class="why-image">
+      <img src="images/botton1ai-generated-9442825.jpg" alt="Why Choose Us">
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESSES WE SERVE -->
+
+<!-- BUSINESS IMAGES SLIDER (AUTO-SLIDING) -->
+<section class="business-slider" style="padding: 40px 20px; background: #fff;">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <h2 style="font-size: 32px; margin-bottom: 20px; text-align: center;">Workspaces & Interiors We Serve</h2>
+    <div class="slider-wrapper">
+      <div class="slider-track">
+        <img src="images/interior1office-6883509.jpg" alt="Interior 1">
+        <img src="images/interior2chairs-2181919.jpg" alt="Interior 2">
+        <img src="images/interior3room-2192484.jpg" alt="Interior 3">
+        <img src="images/interior4office-6804143.jpg" alt="Interior 4">
+        <img src="images/interiorai-generated-8012888.jpg" alt="Interior 5">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT US SECTION -->
+<section class="contact-us" style="
+  padding: 60px 20px;
+  
+  color: white;
+  position: relative;
+">
+  <div style="position: absolute; top:0; left:0; width:100%; height:100%; background:;"></div>
+  <div style="max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; display: flex; flex-wrap: wrap; gap: 40px; justify-content: space-between;">
+    <div style="flex: 1; min-width: 280px;">
+      <h2 style="font-size: 32px; margin-bottom: 20px;">Contact Us</h2>
+      <p style="font-size: 16px; line-height: 1.6;">
+        Have questions or want to discuss your project? Reach out to us!
+      </p>
+      <ul style="list-style: none; padding: 0; font-size: 16px; line-height: 2;">
+        <li>📍 Address: Giriraj Steel Furniture, Main Office, Pune</li>
+        <li>📞 Phone: +91 98765 43210</li>
+        <li>✉️ Email: info@girirajfurniture.com</li>
+        <li>⏰ Working Hours: Mon - Sat: 9:00 AM - 6:00 PM</li>
+      </ul>
+    </div>
+    <div style="flex: 1; min-width: 280px;">
+      <form style="display: flex; flex-direction: column; gap: 15px; background: rgba(255,255,255,0.1); padding: 25px; border-radius: 10px;">
+        <input type="text" placeholder="Your Name" required style="padding: 12px; border-radius: 6px; border: none; font-size: 16px;">
+        <input type="email" placeholder="Your Email" required style="padding: 12px; border-radius: 6px; border: none; font-size: 16px;">
+        <input type="tel" placeholder="Phone Number" required style="padding: 12px; border-radius: 6px; border: none; font-size: 16px;">
+        <textarea placeholder="Your Message" rows="4" required style="padding: 12px; border-radius: 6px; border: none; font-size: 16px;"></textarea>
+        <button type="submit" style="padding: 12px; background-color: #ffeb3b; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; color: #000;">Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Auto sliding business images
+  const track = document.querySelector('.slider-track');
+  const images = document.querySelectorAll('.slider-track img');
+  const totalImages = images.length;
+  let index = 0;
+
+  function autoSlide() {
+    index++;
+    if (index > totalImages - 3) index = 0;
+    const shift = index * (100/3 + 20/track.parentElement.offsetWidth*100);
+    track.style.transform = `translateX(-${shift}%)`;
+  }
+
+  setInterval(autoSlide, 3000);
+
+  // Thumbnail click for main product image
+  function changeImage(el) {
+    const mainId = el.getAttribute("data-main");
+    const mainImage = document.querySelector(`.main-image-wrapper img[data-main="${mainId}"]`);
+    if (mainImage) { mainImage.src = el.src; }
+    const parentThumbs = el.parentElement;
+    parentThumbs.querySelectorAll("img").forEach(img => img.classList.remove("active"));
+    el.classList.add("active");
+  }
+</script>
+
+</body>
+</html>
