@@ -74,7 +74,28 @@
       display: inline-block;
     }
 
-    nav ul li a:hover { background: rgba(255, 255, 255, 0.25); }
+    nav ul li a {
+  position: relative;
+  text-decoration: none;
+  color: #fff; /* link text color */
+}
+
+nav ul li a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px; /* move underline down */
+  width: 0;
+  height: 5px;  /* <-- thickness of underline */
+  background: red; /* underline color */
+  transition: width 0.3s ease;
+  border-radius: 3px; /* optional - smooth edges */
+}
+
+nav ul li a:hover::after {
+  width: 100%;
+}
+
 
     /* Dropdown styles */
     .dropdown {
@@ -264,6 +285,134 @@
       .dropdown-menu { position: static; background: rgba(0,0,0,0.9); display: none; margin-top: 8px; box-shadow: none; }
       .dropdown.open > .dropdown-menu { display: block; }
     }
+    .elementor-24 .elementor-element.elementor-element-51fb97e .elementor-heading-title {
+    font-family: "Uniform", Sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.3em;
+    color: var(--e-global-color-4fc3d7a);
+}
+/* CONTACT US SECTION */
+.contact-us {
+  background: url("images/headquarters-7445782.jpg") center/cover no-repeat;
+  color: white;
+  position: relative;
+  padding: 60px 20px;
+}
+
+.contact-us::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6); /* dark overlay for text readability */
+  z-index: 1;
+}
+
+.contact-us > div {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Left Info Section */
+.contact-us h2 {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.contact-us ul {
+  list-style: none;
+  padding: 0;
+  font-size: 16px;
+  line-height: 2;
+}
+
+/* Right Call Back Form Box */
+.contantus {
+  flex: 1;
+  
+  background: rgba(255,255,255,0.1);
+  border: 3px solid red;   /* bold red border */
+  border-radius: 12px;
+  padding: 30px;
+  color: white;
+
+}
+
+.contantus h2 {
+  margin-top: 0;
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+.contantus p {
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
+/* Form Styling */
+.contantus form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contantus input,
+.contantus textarea {
+  padding: 12px;
+  border-radius: 6px;
+  border: 2px solid #ccc;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.contantus input:focus,
+.contantus textarea:focus {
+  border-color: red;
+  outline: none;
+  box-shadow: 0 0 6px rgba(255,0,0,0.5);
+}
+
+.contantus button {
+  padding: 14px;
+  background-color: red;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #fff;
+  transition: 0.3s;
+}
+
+.contantus button:hover {
+  background-color: darkred;
+  transform: scale(1.03);
+}
+.contantus {
+  flex: 0 0 35%;   /* 35% width, won't stretch */
+  max-width: 400px; /* optional: cap max width */
+  background: rgba(255,255,255,0.1);
+  border: 3px solid red;
+  border-radius: 12px;
+  padding: 30px;
+  color: white;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+@media (max-width: 768px) {
+  .contantus {
+    flex: 1 1 100%;   /* full width on small screens */
+    max-width: 100%;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -350,11 +499,12 @@
 </section>
 
 <!-- BUSINESS IMAGES SLIDER (AUTO-SLIDING) -->
+<!-- BUSINESS IMAGES SLIDER (AUTO-SLIDING) -->
 <section class="business-slider" style="padding: 40px 20px; background: #fff;">
   <div style="max-width: 1200px; margin: 0 auto;">
     <h2 style="font-size: 32px; margin-bottom: 20px; text-align: center;">Workspaces & Interiors We Serve</h2>
-    <div class="slider-wrapper">
-      <div class="slider-track">
+    <div class="slider-wrapper" style="overflow: hidden;">
+      <div class="slider-track" style="display: flex; gap: 20px;">
         <img src="images/interior1office-6883509.jpg" alt="Interior 1">
         <img src="images/interior2chairs-2181919.jpg" alt="Interior 2">
         <img src="images/interior3room-2192484.jpg" alt="Interior 3">
@@ -364,6 +514,39 @@
     </div>
   </div>
 </section>
+
+<style>
+/* Slider images */
+.business-slider .slider-wrapper img {
+  width: calc((100% - 40px) / 3); /* 3 images visible + 20px gap each */
+  flex-shrink: 0;
+  border-radius: 8px;
+  transition: transform 0.5s ease;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const track = document.querySelector('.business-slider .slider-track');
+  const images = track.querySelectorAll('img');
+  const gap = 20; // gap between images
+  const totalImages = images.length;
+
+  let index = 0;
+
+  function slide() {
+    index++;
+    if(index > totalImages - 3) index = 0; // loop back to start
+
+    const imgWidth = images[0].clientWidth;
+    const move = (imgWidth + gap) * index;
+    track.style.transform = `translateX(-${move}px)`;
+  }
+
+  setInterval(slide, 3000); // slide every 3 seconds
+});
+</script>
+
 
 <!-- CONTACT US SECTION -->
 <section class="contact-us" style="
@@ -386,8 +569,12 @@
         <li>⏰ Working Hours: Mon - Sat: 9:00 AM - 6:00 PM</li>
       </ul>
     </div>
-    <div style="flex: 1; min-width: 280px;">
-      <form style="display: flex; flex-direction: column; gap: 15px; background: rgba(255,255,255,0.1); padding: 25px; border-radius: 10px;">
+    <div class="contantus">
+     <h2>Request a call back</h2> 
+<p class="elementor-heading-title elementor-size-default">from the Transteel team<br><a href="tel:+918031404349" style="color: red;">+91 98765 43210</a><br><a href="mailto:contact@transteel.com" style="color: red;">info@girirajfurniture.com</a></p>
+
+
+      <form style="display: flex; flex-direction: column; gap: 15px; padding: 25px; border-radius: 10px;">
         <input type="text" placeholder="Your Name" required style="padding: 12px; border-radius: 6px; border: none; font-size: 16px;">
         <input type="email" placeholder="Your Email" required style="padding: 12px; border-radius: 6px; border: none; font-size: 16px;">
         <input type="tel" placeholder="Phone Number" required style="padding: 12px; border-radius: 6px; border: none; font-size: 16px;">
