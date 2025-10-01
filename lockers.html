@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giriraj Furniture Products</title>
+  <style>
+    :root {
+      --accent-1: #2e2e2e;
+      --accent-2: #4caf50;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+      background: #f4f4f4;
+    }
+
+    /* ---------- HEADER ---------- */
+    .workshop-header {
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      color: #fff;
+      padding: 25px 40px;
+      border-bottom: 6px solid #222;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .workshop-content {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+    .workshop-left h1 { font-size:28px; margin:0; font-weight:700; }
+    .workshop-left p { margin:6px 0 0; opacity:.95; font-style:italic; }
+    .workshop-meta {
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:6px;
+      font-size:14px;
+      text-align:right;
+    }
+    .workshop-meta span {
+      background: rgba(255,255,255,0.12);
+      padding:6px 12px;
+      border-radius:6px;
+    }
+    .workshop-meta a { color:white; text-decoration:none; }
+    .workshop-meta a:hover { text-decoration:underline; }
+
+    /* ---------- CALL NOW BUTTON ---------- */
+    .call-now { display:flex; justify-content:flex-end; margin:15px 40px 0; }
+    .call-now button {
+      background: linear-gradient(135deg, var(--accent-2), var(--accent-1));
+      color:#fff;
+      border:none;
+      font-size:16px;
+      font-weight:700;
+      padding:10px 18px;
+      border-radius:40px;
+      box-shadow:0 6px 14px rgba(0,0,0,0.18);
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      cursor:pointer;
+      transition: transform .18s ease, filter .18s ease;
+    }
+    .call-now button:hover { transform:translateY(-3px); filter:brightness(.98); }
+
+    /* ---------- PRODUCT CONTAINER ---------- */
+    .container {
+      display:flex;
+      max-width:1200px;
+      margin:28px auto;
+      background:white;
+      box-shadow:0 4px 10px rgba(0,0,0,0.08);
+      border-radius:8px;
+      overflow:hidden;
+      gap:0;
+      height:70vh;
+    }
+    .image-section { flex:1.2; display:flex; padding:18px; gap:14px; align-items:center; justify-content:center; }
+    .main-image-wrapper { flex:4; height:100%; border-radius:10px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.08); display:flex; align-items:center; justify-content:center;}
+    .main-image-wrapper img { width:100%;     height: 100%; object-fit:contain; display:block; }
+    .thumbnails { flex:1; display:flex; flex-direction:column; gap:10px; max-height:100%; overflow-y:auto; }
+    .thumbnails img { width:100%; cursor:pointer; border-radius:6px; border:2px solid transparent; object-fit:cover; aspect-ratio:1/1; transition: border .18s ease; }
+    .thumbnails img.active, .thumbnails img:hover { border-color:#333; }
+
+    .info-section { flex:1; padding:26px; background:#fafafa; max-height:100%; overflow-y:auto; }
+    .info-section h2 { font-size:28px; margin-bottom:10px; }
+    .offer { background-color: var(--accent-2); color:#fff; display:inline-block; padding:6px 12px; font-size:14px; border-radius:5px; margin-bottom:20px; }
+    .price { font-size:22px; color:#000; font-weight:bold; margin-bottom:20px; }
+    .details-list li { margin-bottom:10px; font-size:15px; }
+    .info-section table { width:100%; border-collapse: collapse; margin-top:20px; }
+    .info-section table td, .info-section table th { border:1px solid #ccc; padding:8px 12px; }
+    .info-section table th { background:#f0f0f0; text-align:left; }
+    .btn { padding:10px 16px; background:var(--accent-1); color:#fff; border:none; border-radius:6px; cursor:pointer; font-weight:600; margin-top:12px; }
+
+    /* ---------- MODAL ---------- */
+    .modal {
+      position:fixed;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: rgba(0,0,0,0.55);
+      opacity:0;
+      visibility:hidden;
+      pointer-events:none;
+      transition: opacity .22s ease, visibility .22s;
+      z-index:9999;
+    }
+    .modal.open { opacity:1; visibility:visible; pointer-events:auto; }
+    .modal-content {
+      width:420px;
+      max-width:92%;
+      background:#fff;
+      padding:22px;
+      border-radius:12px;
+      box-shadow:0 12px 30px rgba(0,0,0,0.25);
+      position:relative;
+      transform: translateY(6px);
+      transition: transform .22s ease;
+    }
+    .modal.open .modal-content { transform:none; }
+    .modal-content h2 { margin:0 0 8px; font-size:20px; text-align:center; color:#222; }
+    .modal-content label { display:block; margin-top:10px; font-size:13px; color:#333; }
+    .modal-content input { width:100%; padding:10px 12px; margin-top:6px; border-radius:8px; border:1px solid #d0d0d0; font-size:14px; box-sizing:border-box; }
+    .modal-actions { margin-top:16px; display:flex; gap:10px; }
+    .modal-content button[type="submit"] { width:100%; padding:11px; background:var(--accent-2); color:#fff; border:none; border-radius:8px; font-weight:600; cursor:pointer; }
+    .modal-content button[type="submit"]:hover { background:var(--accent-1); }
+    .close-btn { position:absolute; right:12px; top:10px; font-size:20px; cursor:pointer; color:#666; background:transparent; border:none; }
+    .thanks { text-align:center; padding:18px 10px; font-weight:600; color: #2e7d32; }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media(max-width:900px){
+      .container{flex-direction:column;height:auto;}
+      .main-image-wrapper,.thumbnails{height:40vh;}
+      .thumbnails{flex-direction:row;overflow:auto;padding-bottom:10px;}
+      .thumbnails img{width:64px;height:64px;aspect-ratio:1/1;}
+      .workshop-content{flex-direction:column;text-align:center;gap:8px;}
+      .workshop-meta{align-items:center;text-align:center;}
+      .call-now{justify-content:center;margin:12px auto;}
+    }
+    .contact-us {
+  background: url("images/headquarters-7445782.jpg") center/cover no-repeat;
+  color: white;
+  position: relative;
+  padding: 60px 20px;
+}
+
+.contact-us::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6); /* dark overlay for text readability */
+  z-index: 1;
+}
+
+.contact-us > div {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Left Info Section */
+.contact-us h2 {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.contact-us ul {
+  list-style: none;
+  padding: 0;
+  font-size: 16px;
+  line-height: 2;
+}
+
+/* Right Call Back Form Box */
+.contantus {
+  flex: 1;
+  
+  background: rgba(255,255,255,0.1);
+  border: 3px solid red;   /* bold red border */
+  border-radius: 12px;
+  padding: 30px;
+  color: white;
+
+}
+
+.contantus h2 {
+  margin-top: 0;
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+.contantus p {
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
+/* Form Styling */
+.contantus form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contantus input,
+.contantus textarea {
+  padding: 12px;
+  border-radius: 6px;
+  border: 2px solid #ccc;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.contantus input:focus,
+.contantus textarea:focus {
+  border-color: red;
+  outline: none;
+  box-shadow: 0 0 6px rgba(255,0,0,0.5);
+}
+
+.contantus button {
+  padding: 14px;
+  background-color: red;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #fff;
+  transition: 0.3s;
+}
+
+.contantus button:hover {
+  background-color: darkred;
+  transform: scale(1.03);
+}
+.contantus {
+  flex: 0 0 35%;   /* 35% width, won't stretch */
+  max-width: 400px; /* optional: cap max width */
+  background: rgba(255,255,255,0.1);
+  border: 3px solid red;
+  border-radius: 12px;
+  padding: 30px;
+  color: white;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+@media (max-width: 768px) {
+  .contantus {
+    flex: 1 1 100%;   /* full width on small screens */
+    max-width: 100%;
+  }
+}
+.modal-content {
+    border: #4caf50 solid 5px;
+}
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="workshop-header">
+    <div class="workshop-content">
+      <div class="workshop-left">
+        <h1>Giriraj Furniture Workshop</h1>
+        <p>Premium Office & Industrial Furniture Solutions</p>
+      </div>
+      <div class="workshop-meta">
+        <span>📍 <a href="https://www.google.com/maps" target="_blank" rel="noopener">123 Industrial Estate, Pune, India</a></span>
+        <span>📞 <a href="tel:+919876543210">+91 98765 43210</a></span>
+        <span>✉️ <a href="mailto:info@girirajfurniture.com">info@girirajfurniture.com</a></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- CALL NOW BUTTON -->
+  <div class="call-now">
+    <button id="openCallModal">📞 Call +91-8047646591</button>
+  </div>
+
+  <!-- PRODUCT 1 -->
+  <div class="container">
+    <div class="image-section">
+      <div class="main-image-wrapper">
+        <img src="images/locker11Gemini_Generated_Image_txikj9txikj9txik.png" alt="Product 1 main" />
+      </div>
+      <div class="thumbnails">
+        <img src="images/locker113closedGemini_Generated_Image_tdcorztdcorztdco.png" alt="thumb1" >
+        <img src="images/locker113closedGemini_Generated_Image_tdcorztdcorztdco.png" alt="thumb2">
+        <img src="images/locker114openGemini_Generated_Image_hnr38chnr38chnr3.png" alt="thumb3">
+        <img src="images/locker11Gemini_Generated_Image_txikj9txikj9txik.png" alt="thumb4" class="active">
+      </div>
+    </div>
+    <div class="info-section">
+      <h2>Comfert Office Chair</h2>
+      <div class="offer">✔️ In Stock</div>
+      <div class="price">₹38,700 / Piece</div>
+      <ul class="details-list">
+        <li><strong>Material:</strong> Iron, Mild Steel</li>
+        <li><strong>Lock:</strong> Mechanical Key</li>
+        <li><strong>Finish:</strong> Satin + Powder Coating</li>
+        <li><strong>Brand:</strong> Giriraj</li>
+      </ul>
+      <h3>Dimensions</h3>
+      <table>
+        <tr><th>Height</th><td>1960 mm</td></tr>
+        <tr><th>Width</th><td>900 mm</td></tr>
+        <tr><th>Depth</th><td>450 mm</td></tr>
+        <tr><th>Weight</th><td>85 kg</td></tr>
+      </table>
+      <h3>Features</h3>
+      <ul class="details-list">
+        <li>Electrostatic rust-proof coating</li>
+        <li>Available in 4, 6, 9, 12, 15, 18 lockers</li>
+        <li>Ideal for staff or industrial use</li>
+      </ul>
+      <h3>Product Summary</h3>
+      <p>A long row of metallic, silver-gray lockers in a modern office hallway. Multi-tiered compartments with secure digital keypads.</p>
+      <button class="btn">Get Best Quote</button>
+    </div>
+  </div>
+
+  <!-- PRODUCT 2 -->
+  <div class="container">
+    <div class="image-section">
+      <div class="main-image-wrapper">
+        <img src="images/c1Gemini_Generated_Image_cyovoocyovoocyov.jpg" alt="Product 2 main" />
+      </div>
+      <div class="thumbnails">
+        <img src="images/c21Gemini_Generated_Image_cyovoocyovoocyov.png" alt="thumb1" class="active">
+        <img src="images/c23Gemini_Generated_Image_w2w0wtw2w0wtw2w0.png" alt="thumb2">
+        <img src="images/c1Gemini_Generated_Image_cyovoocyovoocyov.jpg" alt="thumb3">
+      </div>
+    </div>
+    <div class="info-section">
+      <h2>Comfert Office Desk Chair</h2>
+      <div class="offer">✔️ Limited Stock</div>
+      <div class="price">₹31,200 / Piece</div>
+      <ul class="details-list">
+        <li><strong>Material:</strong> Mild Steel</li>
+        <li><strong>Lock:</strong> Keypad + Padlock</li>
+        <li><strong>Finish:</strong> Matte Black</li>
+        <li><strong>Brand:</strong> Giriraj</li>
+      </ul>
+      <h3>Dimensions</h3>
+      <table>
+        <tr><th>Height</th><td>1800 mm</td></tr>
+        <tr><th>Width</th><td>750 mm</td></tr>
+        <tr><th>Depth</th><td>400 mm</td></tr>
+        <tr><th>Weight</th><td>70 kg</td></tr>
+      </table>
+      <h3>Features</h3>
+      <ul class="details-list">
+        <li>Customizable locker combinations</li>
+        <li>Available in 6 and 12 locker setups</li>
+        <li>Scratch-resistant finish</li>
+      </ul>
+      <button class="btn">Get Best Quote</button>
+    </div>
+  </div>
+<section class="contact-us" style="
+  padding: 60px 20px;
+  
+  color: white;
+  position: relative;
+">
+  <div style="position: absolute; top:0; left:0; width:100%; height:100%; background:;"></div>
+  <div style="max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; display: flex; flex-wrap: wrap; gap: 40px; justify-content: space-between;">
+    <div style="flex: 1; min-width: 280px;">
+      <h2 style="font-size: 32px; margin-bottom: 20px;">Contact Us</h2>
+      <p style="font-size: 16px; line-height: 1.6;">
+        Have questions or want to discuss your project? Reach out to us!
+      </p>
+      <ul style="list-style: none; padding: 0; font-size: 16px; line-height: 2;">
+        <li>📍 Address: Giriraj Steel Furniture, Main Office, Pune</li>
+        <li>📞 Phone: +91 98765 43210</li>
+        <li>✉️ Email: info@girirajfurniture.com</li>
+        <li>⏰ Working Hours: Mon - Sat: 9:00 AM - 6:00 PM</li>
+      </ul>
+    </div>
+    <div class="contantus">
+     <h2>Request a call back</h2> 
+<p class="elementor-heading-title elementor-size-default">from the Transteel team<br><a href="tel:+918031404349" style="color: red;">+91 98765 43210</a><br><a href="mailto:contact@transteel.com" style="color: red;">info@girirajfurniture.com</a></p>
+
+
+      <form style="display: flex; flex-direction: column; gap: 15px; padding: 25px; border-radius: 10px;">
+        <input type="text" placeholder="Your Name" required style="padding: 12px; border-radius: 6px; border: none; font-size: 16px;">
+        <input type="email" placeholder="Your Email" required style="padding: 12px; border-radius: 6px; border: none; font-size: 16px;">
+        <input type="tel" placeholder="Phone Number" required style="padding: 12px; border-radius: 6px; border: none; font-size: 16px;">
+        <textarea placeholder="Your Message" rows="4" required style="padding: 12px; border-radius: 6px; border: none; font-size: 16px;"></textarea>
+        <button type="submit" style="padding: 12px; background-color: #ffeb3b; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; color: #000;">Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>
+  <!-- CALL NOW MODAL -->
+  <div id="callModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="callModalTitle">
+    <div class="modal-content" role="document">
+      <button class="close-btn" id="closeCallModal" aria-label="Close modal">&times;</button>
+      <div id="formWrapper">
+        <h2 id="callModalTitle">Request a Call Back</h2>
+        <form id="callForm" autocomplete="on" novalidate>
+          <label for="name">Your Name</label>
+          <input id="name" name="name" type="text" placeholder="Enter your name" required>
+          <label for="email">Your Email</label>
+          <input id="email" name="email" type="email" placeholder="Enter your email" required>
+          <label for="company">Company / Business</label>
+          <input id="company" name="company" type="text" placeholder="Enter company or business name">
+          <label for="website">Website / URL</label>
+          <input id="website" name="website" type="url" placeholder="https://example.com">
+          <label for="phone">Phone Number</label>
+          <input id="phone" name="phone" type="tel" placeholder="+91 9XXXXXXXXX" required>
+          <div class="modal-actions">
+            <button type="submit">Submit</button>
+          </div>
+        </form>
+      </div>
+      <div id="thankYou" class="thanks" style="display:none;">
+        Thanks! We'll contact you shortly.
+      </div>
+    </div>
+  </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  const openBtn = document.getElementById('openCallModal');
+  const modal = document.getElementById('callModal');
+  const closeBtn = document.getElementById('closeCallModal');
+  const form = document.getElementById('callForm');
+  const formWrapper = document.getElementById('formWrapper');
+  const thankYou = document.getElementById('thankYou');
+
+  function openModal() {
+    modal.classList.add('open');
+    document.body.style.overflow='hidden';
+    const firstInput = form.querySelector('input');
+    if(firstInput) firstInput.focus();
+  }
+  function closeModal() {
+    modal.classList.remove('open');
+    document.body.style.overflow='';
+    setTimeout(()=>{
+      formWrapper.style.display='';
+      thankYou.style.display='none';
+      form.reset();
+    },200);
+  }
+
+  openBtn.addEventListener('click', e=>{e.preventDefault(); openModal();});
+  document.querySelectorAll('.btn').forEach(btn=>btn.addEventListener('click', e=>{e.preventDefault(); openModal();}));
+  closeBtn.addEventListener('click', e=>{e.preventDefault(); closeModal();});
+  modal.addEventListener('click', ev=>{if(ev.target===modal) closeModal();});
+  document.addEventListener('keydown', ev=>{if(ev.key==='Escape' && modal.classList.contains('open')) closeModal();});
+
+  form.addEventListener('submit', ev=>{
+    ev.preventDefault();
+    const data = {
+      name: form.name.value.trim(),
+      email: form.email.value.trim(),
+      company: form.company.value.trim(),
+      website: form.website.value.trim(),
+      phone: form.phone.value.trim()
+    };
+    if(!data.name||!data.email||!data.phone){ alert('Please fill Name, Email and Phone.'); return; }
+    formWrapper.style.display='none';
+    thankYou.style.display='block';
+    setTimeout(closeModal,2000);
+    console.log('Call request submitted:',data);
+  });
+
+  /* Thumbnail switching */
+  document.querySelectorAll('.container').forEach(container=>{
+    const mainImg = container.querySelector('.main-image-wrapper img');
+    const thumbs = container.querySelectorAll('.thumbnails img');
+    thumbs.forEach(thumb=>{
+      thumb.addEventListener('click',function(){
+        if(mainImg && this.src) mainImg.src=this.src;
+        thumbs.forEach(t=>t.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+  });
+});
+</script>
+
+</body>
+</html>
