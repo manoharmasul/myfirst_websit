@@ -404,93 +404,167 @@
   </div>
 </section>
   <!-- CALL NOW MODAL -->
+  <!-- CALL NOW MODAL -->
   <div id="callModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="callModalTitle">
     <div class="modal-content" role="document">
       <button class="close-btn" id="closeCallModal" aria-label="Close modal">&times;</button>
+
       <div id="formWrapper">
         <h2 id="callModalTitle">Request a Call Back</h2>
-        <form id="callForm" autocomplete="on" novalidate>
+
+       <!-- <form id="callForm" autocomplete="on" novalidate>
           <label for="name">Your Name</label>
           <input id="name" name="name" type="text" placeholder="Enter your name" required>
+
           <label for="email">Your Email</label>
           <input id="email" name="email" type="email" placeholder="Enter your email" required>
+
           <label for="company">Company / Business</label>
           <input id="company" name="company" type="text" placeholder="Enter company or business name">
+
           <label for="website">Website / URL</label>
           <input id="website" name="website" type="url" placeholder="https://example.com">
+
           <label for="phone">Phone Number</label>
           <input id="phone" name="phone" type="tel" placeholder="+91 9XXXXXXXXX" required>
+
           <div class="modal-actions">
             <button type="submit">Submit</button>
           </div>
-        </form>
+        </form>-->
+
+        <form id="form">
+  <div class="field">
+    <label for="title">title</label>
+    <input type="text" name="title" id="title">
+  </div>
+  <div class="field">
+    <label for="name">name</label>
+    <input type="text" name="name" id="name">
+  </div>
+  <div class="field">
+    <label for="email">email</label>
+    <input type="text" name="email" id="email">
+  </div>
+  <div class="field">
+    <label for="company">company</label>
+    <input type="text" name="company" id="company">
+  </div>
+  <div class="field">
+    <label for="phone">phone</label>
+    <input type="text" name="phone" id="phone">
+  </div>
+  <div class="field">
+    <label for="message">message</label>
+    <input type="text" name="message" id="message">
+  </div>
+
+  <input type="submit" id="button" value="Send Email" >
+</form>
+
       </div>
+
       <div id="thankYou" class="thanks" style="display:none;">
         Thanks! We'll contact you shortly.
       </div>
     </div>
   </div>
 
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function(){
-  const openBtn = document.getElementById('openCallModal');
-  const modal = document.getElementById('callModal');
-  const closeBtn = document.getElementById('closeCallModal');
-  const form = document.getElementById('callForm');
-  const formWrapper = document.getElementById('formWrapper');
-  const thankYou = document.getElementById('thankYou');
+  document.addEventListener('DOMContentLoaded', function () {
+    // Modal elements
+    const openBtn = document.getElementById('openCallModal');
+    const modal = document.getElementById('callModal');
+    const closeBtn = document.getElementById('closeCallModal');
+    const form = document.getElementById('form'); // ✅ now using your EmailJS form
+    const formWrapper = document.getElementById('formWrapper');
+    const thankYou = document.getElementById('thankYou');
 
-  function openModal() {
-    modal.classList.add('open');
-    document.body.style.overflow='hidden';
-    const firstInput = form.querySelector('input');
-    if(firstInput) firstInput.focus();
-  }
-  function closeModal() {
-    modal.classList.remove('open');
-    document.body.style.overflow='';
-    setTimeout(()=>{
-      formWrapper.style.display='';
-      thankYou.style.display='none';
-      form.reset();
-    },200);
-  }
+    // Open modal
+    function openModal() {
+      modal.classList.add('open');
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+      const firstInput = form.querySelector('input');
+      if (firstInput) firstInput.focus();
+    }
 
-  openBtn.addEventListener('click', e=>{e.preventDefault(); openModal();});
-  document.querySelectorAll('.btn').forEach(btn=>btn.addEventListener('click', e=>{e.preventDefault(); openModal();}));
-  closeBtn.addEventListener('click', e=>{e.preventDefault(); closeModal();});
-  modal.addEventListener('click', ev=>{if(ev.target===modal) closeModal();});
-  document.addEventListener('keydown', ev=>{if(ev.key==='Escape' && modal.classList.contains('open')) closeModal();});
+    // Close modal
+    function closeModal() {
+      modal.classList.remove('open');
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+      setTimeout(() => {
+        formWrapper.style.display = '';
+        thankYou.style.display = 'none';
+        form.reset();
+      }, 200);
+    }
 
-  form.addEventListener('submit', ev=>{
-    ev.preventDefault();
-    const data = {
-      name: form.name.value.trim(),
-      email: form.email.value.trim(),
-      company: form.company.value.trim(),
-      website: form.website.value.trim(),
-      phone: form.phone.value.trim()
-    };
-    if(!data.name||!data.email||!data.phone){ alert('Please fill Name, Email and Phone.'); return; }
-    formWrapper.style.display='none';
-    thankYou.style.display='block';
-    setTimeout(closeModal,2000);
-    console.log('Call request submitted:',data);
-  });
-
-  /* Thumbnail switching */
-  document.querySelectorAll('.container').forEach(container=>{
-    const mainImg = container.querySelector('.main-image-wrapper img');
-    const thumbs = container.querySelectorAll('.thumbnails img');
-    thumbs.forEach(thumb=>{
-      thumb.addEventListener('click',function(){
-        if(mainImg && this.src) mainImg.src=this.src;
-        thumbs.forEach(t=>t.classList.remove('active'));
-        this.classList.add('active');
-      });
+    // Open modal buttons
+    openBtn.addEventListener('click', e => { e.preventDefault(); openModal(); });
+    document.querySelectorAll('.btn').forEach(btn => {
+      btn.addEventListener('click', e => { e.preventDefault(); openModal(); });
     });
+
+    // Close modal events
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', ev => { if (ev.target === modal) closeModal(); });
+    document.addEventListener('keydown', ev => { if (ev.key === 'Escape') closeModal(); });
+
+    /* ---------- Thumbnail switching ---------- */
+    function setupThumbs() {
+      const containers = document.querySelectorAll('.container');
+      containers.forEach(container => {
+        const mainImg = container.querySelector('.main-image-wrapper img');
+        const thumbs = container.querySelectorAll('.thumbnails img');
+
+        // Default active
+        if (![...thumbs].some(t => t.classList.contains('active')) && thumbs[0]) {
+          thumbs[0].classList.add('active');
+          mainImg.src = thumbs[0].src;
+        }
+
+        thumbs.forEach(thumb => {
+          thumb.addEventListener('click', function () {
+            mainImg.src = this.src;
+            thumbs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+          });
+        });
+      });
+    }
+    setupThumbs();
   });
-});
+</script>
+
+<!-- EmailJS -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+  (function() {
+    emailjs.init("-zMD51EEAPcbNCGkg"); // your public key
+  })();
+
+  const btn = document.getElementById('button');
+  document.getElementById('form')
+    .addEventListener('submit', function(event) {
+      event.preventDefault();
+      btn.value = 'Sending...';
+
+      const serviceID = 'service_6ppgf4s';
+      const templateID = 'template_01l6uyp';
+
+      emailjs.sendForm(serviceID, templateID, this)
+        .then(() => {
+          btn.value = 'Send Email';
+          alert('✅ Email Sent Successfully!');
+        }, (err) => {
+          btn.value = 'Send Email';
+          alert('❌ Failed: ' + JSON.stringify(err));
+          console.error('EmailJS Error:', err);
+        });
+    });
 </script>
 
 </body>
