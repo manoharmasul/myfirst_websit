@@ -412,7 +412,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const tableBody = document.querySelector('#productTable tbody');
 
     try {
-        const response = await fetch('https://localhost:7065/api/Productsontroller/GetAllProducts');
+        const response = await fetch('https://giriwebapis.runasp.net/api/Productsontroller/GetAllProducts');
         const data = await response.json();
 
         if (data.statusCode !== 200 || !data.responseData?.length) {
@@ -604,7 +604,7 @@ form.addEventListener('submit', async function (e) {
   console.log("📤 Sending product data to API:", productData);
 
   try {
-    const productResponse = await fetch('https://localhost:7065/api/Productsontroller/AddNewProducts', {
+    const productResponse = await fetch('https://giriwebapis.runasp.net/api/Productsontroller/AddNewProducts', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(productData)
@@ -620,7 +620,7 @@ form.addEventListener('submit', async function (e) {
         for (let i = 0; i < imageInput.files.length; i++) {
           imagesForm.append('images', imageInput.files[i]);
         }
-        await fetch(`https://localhost:7065/api/Productsontroller/api/products/${productId}/images`, {
+        await fetch(`https://giriwebapis.runasp.net/api/Productsontroller/api/products/${productId}/images`, {
           method: 'POST',
           body: imagesForm
         });
@@ -921,3 +921,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </body>
 </html>
+
